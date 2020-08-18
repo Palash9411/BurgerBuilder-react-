@@ -13,7 +13,7 @@ class BurgerBuilder extends Component{
     // another method for initialising state  
     state ={
         incredients : {
-            salad : 1 ,
+            salad : 0 ,
             bacon : 1 ,
             meat : 2 ,
             cheese : 2 
