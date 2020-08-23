@@ -1,7 +1,9 @@
-import React,{ Component } from "react"
-import Aux from '../../hoc/auxillaryComp'
-import Burger from '../../components/Burger/Burger'
-import BuildControls from "../../components/Burger/BuildControls/BuildControls"
+import React,{ Component } from "react";
+import Aux from '../../hoc/auxillaryComp';
+import Burger from '../../components/Burger/Burger';
+import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 
 const INCREDIENT_PRICE ={
     salad : 0.5 ,
@@ -28,7 +30,8 @@ class BurgerBuilder extends Component{
             cheese : 0 
         },
         price : 4,
-        purchasable : false 
+        purchasable : false ,
+        purchasing :false 
     }
 
     updatePurchaseState (incredients) {
@@ -69,6 +72,15 @@ class BurgerBuilder extends Component{
         this.setState({price : newPrice , incredients : updatedIncredients});
         this.updatePurchaseState(updatedIncredients);
     }
+    purchaseHandler = ()=>{
+        this.setState({purchasing : true})
+    }
+    burgerCancelHandler =()=>{
+        this.setState({purchasing : false})
+    }
+    burgerContinueHandler = () =>{
+        alert('You Continue!!')
+    }
     render(){
         const disabledInfo = {
             ...this.state.incredients
@@ -78,13 +90,22 @@ class BurgerBuilder extends Component{
         }
         return (
             <Aux>
+                <Modal show={this.state.purchasing} modalClosed={this.burgerCancelHandler}>
+                   <OrderSummary 
+                    incredients={this.state.incredients} 
+                     orderCancel={this.burgerCancelHandler}
+                     orderContinue ={this.burgerContinueHandler}
+                     price = {this.state.price}
+                 />
+                </Modal>
                  <Burger incredients ={this.state.incredients}/>
                 <BuildControls
                 incredientAdded = {this.addIncredientHandler} 
                 incredientRemoved = {this.removeIncredientHandler}
                 disabled={disabledInfo}
                 price={this.state.price}
-                purchasable = {this.state.purchasable}/>
+                purchasable = {this.state.purchasable}
+                Ordered = {this.purchaseHandler}/>
             </Aux>
            
         );
