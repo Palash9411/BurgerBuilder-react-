@@ -27,3 +27,33 @@
     border-bottom: 4px solid #40a4c8 !important;
     color : white ;
 }
+
+@media (max-width :500px){
+    .NavigationItem{
+        margin: 10px 0;
+        display: block;
+        height: 100%;
+        width: auto;
+        /* align-items: center; */
+    }
+    
+    .NavigationItem a {
+        color:#8f5c2c;
+        display: block;
+        width: 100%;
+        padding: 0px ;
+    }
+    
+    .NavigationItem a:hover ,
+    .NavigationItem a:active {
+        background-color: white;
+        color :  #40a4c8 !important;
+        border-bottom:none !important;
+    }
+    .active{
+        background-color: white;
+        color : #40a4c8 !important ;
+        border-bottom : none !important;
+    }
+    
+}
