@@ -5,7 +5,8 @@ import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '.../../../src/axios-order';
-import Spinner from '../../components/UI/Spinner/Spinner'
+import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 
 const INCREDIENT_PRICE ={
     salad : 0.5 ,
@@ -36,7 +37,12 @@ class BurgerBuilder extends Component{
         purchasing :false ,
         loading : false 
     }
-
+    componentDidMount(){
+        axios.get('https://burgerbuilder-35205.firebaseio.com/incredients')
+        .then(res =>{
+            this.setState({incredients:res.data})
+        })
+    }
     updatePurchaseState (incredients) {
         
         const sum = Object.keys(incredients).map(igKey =>{
@@ -141,4 +147,4 @@ class BurgerBuilder extends Component{
     }
 }
 
-export default BurgerBuilder ;
+export default withErrorHandler(BurgerBuilder,axios) ;
